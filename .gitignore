@@ -1,0 +1,3 @@
+# Ignore bin and obj folders
+/windows/src/setup_manager_windows/setup_manager_windows/bin/
+/windows/src/setup_manager_windows/setup_manager_windows/obj/
