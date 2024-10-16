@@ -1,11 +1,12 @@
 ﻿using setup_manager_windows.src.step_4_nvidia_driver;
+using setup_manager_windows.src.template_form.type3;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace setup_manager_windows.src.step_5_cuda
 {
-    public partial class CUDAInstallationScreen : UserControl, ITransitionable
+    public partial class CUDAInstallationScreen : TemplateType3, ITransitionable
     {
         private bool isCheck = false;
 
@@ -23,7 +24,24 @@ namespace setup_manager_windows.src.step_5_cuda
         public CUDAInstallationScreen()
         {
             InitializeComponent();
+            Init();
         }
+
+        private void Init()
+        {
+            this.LeftBtnText1 = "Github";
+            this.RightBtnText2 = "Cancel";
+            this.RightBtnText1 = "Next";
+            this.HeaderText = "5. Install CUDA";
+            this.MainText = "Checking for Driver information...";
+            this.TextBox = "";
+            this.AsideText = "";
+
+            this.LeftBtnClick1 += (s, e) => githubBtn_Click();
+            this.RightBtnClick2 += (s, e) => cancelBtn_Click();
+            this.RightBtnClick1 += (s, e) => nextBtn_Click();
+        }
+
 
         private void CheckNvidiaDriver()
         {
@@ -31,39 +49,39 @@ namespace setup_manager_windows.src.step_5_cuda
 
             if (information != string.Empty)
             {
-                midTextBox.Text = information;
+                this.TextBox = information;
                 string cudaVersion = Nvidia.GetCUDAVersion();
 
                 MessageBox.Show($"CUDA Version: {cudaVersion}");
-                bottomText.Text = $"CUDA Version: {cudaVersion}";
+                this.AsideText = $"CUDA Version: {cudaVersion}";
             }
             else
             {
-                midTextBox.Text = "Nvidia Driver is either not installed or not supported.";
+                this.HeaderText = "Nvidia Driver is either not installed or not supported.";
 
                 MessageBox.Show("No Driver!");
                 Application.Exit();
             }
         }
 
-        private void githubBtn_Click(object sender, EventArgs e)
+        private void githubBtn_Click()
         {
             ButtonController.GithubBtn();
         }
 
-        private void cancelBtn_Click(object sender, EventArgs e)
+        private void cancelBtn_Click()
         {
             ButtonController.CancelBtn();
         }
 
-        private void nextBtn_Click(object sender, EventArgs e)
+        private void nextBtn_Click()
         {
             if (!isCheck)
             {
                 CheckNvidiaDriver();
 
                 isCheck = true;
-                nextBtn.Text = "Next";
+                this.RightBtnText1 = "Next";
             }
             else
             {

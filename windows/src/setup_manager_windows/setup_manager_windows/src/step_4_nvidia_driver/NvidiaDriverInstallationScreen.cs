@@ -1,11 +1,12 @@
-﻿using setup_manager_windows.src.tool_form;
+﻿using setup_manager_windows.src.template_form.type3;
+using setup_manager_windows.src.tool_form;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace setup_manager_windows.src.step_4_nvidia_driver
 {
-    public partial class NvidiaDriverInstallationScreen : UserControl, ITransitionable
+    public partial class NvidiaDriverInstallationScreen : TemplateType3, ITransitionable
     {
         private string nvidiaInstallerURL = "https://kr.download.nvidia.com/GFE/GFEClient/3.28.0.417/GeForce_Experience_v3.28.0.417.exe";
         private bool nextEnabled = false;
@@ -25,48 +26,65 @@ namespace setup_manager_windows.src.step_4_nvidia_driver
         public NvidiaDriverInstallationScreen()
         {
             InitializeComponent();
-
-            nextBtn.Enabled = false;
+            Init();
 
             CheckNvidiaDriver();
         }
+
+        private void Init()
+        {
+            this.LeftBtnText1 = "Github";
+            this.RightBtnText2 = "Cancel";
+            this.RightBtnText1 = "Next";
+            this.HeaderText = "4. Install Nvidia Driver";
+            this.MainText = "Checking for Nvidia Driver information...";
+            this.TextBox = "";
+            this.AsideText = "";
+
+            this.LeftBtnClick1 += (s, e) => githubBtn_Click();
+            this.RightBtnClick2 += (s, e) => cancelBtn_Click();
+            this.RightBtnClick1 += (s, e) => nextBtn_Click();
+
+            this.RightBtnEnabled1 = false;
+        }
+
 
         private void CheckNvidiaDriver()
         {
             string information = Nvidia.GetNvidiaInformation();
 
-            if(information != string.Empty)
+            if (information != string.Empty)
             {
-                midTextBox.Text = information;
+                this.TextBox = information;
 
-                bottomText.Text = "Great! Nvidia Driver is already installed.";
-                nextBtn.Text = "Next";
+                this.AsideText = "Great! Nvidia Driver is already installed.";
+                this.RightBtnText1 = "Next";
 
-                nextBtn.Enabled = true;
-                nextEnabled = true;
+                this.RightBtnEnabled1 = true;
+                this.nextEnabled = true;
             }
             else
             {
-                midTextBox.Text = "Nvidia Driver is either not installed or not supported.";
+                this.TextBox = "Nvidia Driver is either not installed or not supported.";
 
-                bottomText.Text = "Oh no! Installing Nvidia Driver now.";
-                nextBtn.Text = "Install";
+                this.AsideText = "Oh no! Installing Nvidia Driver now.";
+                this.RightBtnText1 = "Install";
 
-                nextBtn.Enabled = true;
+                this.RightBtnEnabled1 = true;
             }
         }
 
-        private void githubBtn_Click(object sender, EventArgs e)
+        private void githubBtn_Click()
         {
             ButtonController.GithubBtn();
         }
 
-        private void cancelBtn_Click(object sender, EventArgs e)
+        private void cancelBtn_Click()
         {
             ButtonController.CancelBtn();
         }
 
-        private void nextBtn_Click(object sender, EventArgs e)
+        private void nextBtn_Click()
         {
             if (nextEnabled)
             {
@@ -76,7 +94,7 @@ namespace setup_manager_windows.src.step_4_nvidia_driver
             {
                 InstallNvidiaDriver();
 
-                nextBtn.Text = "Next";
+                RightBtnText1 = "Next";
                 nextEnabled = true;
             }
         }
