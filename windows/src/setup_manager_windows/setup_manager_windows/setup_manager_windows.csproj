@@ -105,6 +105,7 @@
     <Compile Include="src\FrameForm.Designer.cs">
       <DependentUpon>FrameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\ScreenManager.cs" />
     <Compile Include="src\step_0_main\MainScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -148,10 +149,28 @@
     <Compile Include="src\step_6_agent\AgentInstallationScreen.Designer.cs">
       <DependentUpon>AgentInstallationScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\tool_form\ProgressForm.cs">
+    <Compile Include="src\template_form\type1\TemplateType1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\template_form\type1\TemplateType1.Designer.cs">
+      <DependentUpon>TemplateType1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\template_form\type2\TemplateType2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\template_form\type2\TemplateType2.Designer.cs">
+      <DependentUpon>TemplateType2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\template_form\type3\TemplateType3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\template_form\type3\TemplateType3.Designer.cs">
+      <DependentUpon>TemplateType3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\template_form\tool_form\ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\tool_form\ProgressForm.Designer.cs">
+    <Compile Include="src\template_form\tool_form\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -163,34 +182,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="src\final_screen\FinallScreen.resx">
-      <DependentUpon>FinallScreen.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="src\FrameForm.resx">
       <DependentUpon>FrameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\step_0_main\MainScreen.resx">
-      <DependentUpon>MainScreen.cs</DependentUpon>
+    <EmbeddedResource Include="src\template_form\type1\TemplateType1.resx">
+      <DependentUpon>TemplateType1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\step_1_agreement\AgreementScreen.resx">
-      <DependentUpon>AgreementScreen.cs</DependentUpon>
+    <EmbeddedResource Include="src\template_form\type2\TemplateType2.resx">
+      <DependentUpon>TemplateType2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\step_2_wsl2\WSL2InstallationScreen.resx">
-      <DependentUpon>WSL2InstallationScreen.cs</DependentUpon>
+    <EmbeddedResource Include="src\template_form\type3\TemplateType3.resx">
+      <DependentUpon>TemplateType3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\step_3_docker\DockerInstallationScreen.resx">
-      <DependentUpon>DockerInstallationScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\step_4_nvidia_driver\NvidiaDriverInstallationScreen.resx">
-      <DependentUpon>NvidiaDriverInstallationScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\step_5_cuda\CUDAInstallationScreen.resx">
-      <DependentUpon>CUDAInstallationScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\step_6_agent\AgentInstallationScreen.resx">
-      <DependentUpon>AgentInstallationScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\tool_form\ProgressForm.resx">
+    <EmbeddedResource Include="src\template_form\tool_form\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

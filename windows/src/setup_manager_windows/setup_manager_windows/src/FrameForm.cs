@@ -25,23 +25,16 @@ namespace setup_manager_windows.src
             InitializeComponent();
 
             // Set the initial screen to MainScreen
-            SwitchScreen<MainScreen>();
+            SwitchScreen(new MainScreen());
         }
 
         // Restrict T to types that inherit from UserControl
-        private void SwitchScreen<T>() where T : UserControl, new()
+        private void SwitchScreen(UserControl screen)
         {
-            // Create and configure a new screen instance
-            var screen = new T
-            {
-                Dock = DockStyle.Fill
-            };
-
-            // Add the new screen to mainPanel
+            screen.Dock = DockStyle.Fill;
             mainPanel.Controls.Clear();
             mainPanel.Controls.Add(screen);
 
-            // Attach the NextButtonClicked event handler to each screen
             if (screen is ITransitionable transitionableScreen)
             {
                 transitionableScreen.NextButtonClicked += (s, e) => HandleNextButtonClick(transitionableScreen);
@@ -52,38 +45,15 @@ namespace setup_manager_windows.src
         // HELP ME
         private void HandleNextButtonClick(ITransitionable currentScreen)
         {
-            if (currentScreen is MainScreen)
+            var nextScreen = ScreenManager.GetNextScreen((UserControl)currentScreen);
+
+            if (nextScreen != null)
             {
-                SwitchScreen<AgreementScreen>();
+                SwitchScreen(nextScreen);
             }
-            else if (currentScreen is AgreementScreen)
-            {
-                SwitchScreen<WSL2InstallationScreen>();
-            }
-            else if (currentScreen is WSL2InstallationScreen)
-            {
-                SwitchScreen<DockerInstallationScreen>();
-            }
-            else if (currentScreen is DockerInstallationScreen)
-            {
-                SwitchScreen<NvidiaDriverInstallationScreen>();
-            }
-            else if (currentScreen is NvidiaDriverInstallationScreen)
-            {
-                SwitchScreen<CUDAInstallationScreen>();
-            }
-            else if(currentScreen is CUDAInstallationScreen)
-            {
-                SwitchScreen<AgentInstallationScreen>();
-            }
-            else if(currentScreen is AgentInstallationScreen)
-            {
-                SwitchScreen<FinallScreen>();
-            }
-            else if(currentScreen is FinallScreen)
+            else
             {
                 Application.Exit();
-                return;
             }
         }
     }
